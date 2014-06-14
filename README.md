@@ -2,11 +2,11 @@ Metacritic API
 ==============
 Using this Metacritic API, you are able to search games on [metacritic.com](http://www.metacritic.com).
 
-It will give you back the metacritic score, users scores, genres, rating, developers and much more (see below for an example).
+It will give you back the metacritic score, users score, genres, rating, developers and much more (see below for an example).
 The output is in [JSON format](http://us.php.net/manual/en/function.json-decode.php), so it is easy to parse in both PHP or other languages.
 
 By default it uses the URL prefix: "http://www.metacritic.com/game/pc/". If you want to search for Playstation 3 games, just change it to:
-"http://www.metacritic.com/game/playstation-3" for example. See [metacritic.php](metacritic.php) file.
+"http://www.metacritic.com/game/playstation-3". See [metacritic.php](metacritic.php) file.
 
 
 Example
