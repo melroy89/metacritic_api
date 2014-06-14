@@ -16,7 +16,10 @@ class MetacriticAPI
         # Remove ,
         $game_name = str_replace(',', '', $game_name);
         # Remove .
-        $game_name = str_replace('.', '', $game_name);
+        $game_name = str_replace('.', '', $game_name);        
+        # Remove (r), trade mark & (c) symbols
+        $game_name = str_replace(array('®', '™', '©'), array('', '', ''), $game_name);
+        
         # lowercase
         $game_name = strtolower($game_name);
         
