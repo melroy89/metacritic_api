@@ -9,20 +9,13 @@ class MetacriticAPI
         $returnValue = "";
         # convert spaces to -
         $game_name = str_replace(' ', '-', $game_name);
-        # remove :
-        $game_name = str_replace(':', '', $game_name);
-        # Remove '
-        $game_name = str_replace('\'', '', $game_name);
-        # Remove ,
-        $game_name = str_replace(',', '', $game_name);
-        # Remove .
-        $game_name = str_replace('.', '', $game_name);        
-        # Remove (r), trade mark & (c) symbols
-        $game_name = str_replace(array('®', '™', '©'), array('', '', ''), $game_name);
-        
+        # Remove &<space>
+        $game_name = str_replace('& ', '', $game_name);
         # lowercase
-        $game_name = strtolower($game_name);
-        
+        $game_name = strtolower($game_name);        
+        # Remove all special chars execept a-z, digits, --sign, ?-sign, !-sign
+        $game_name = preg_replace('/[^a-z\d\?!\-]/', '', $game_name);
+
         # Get the webpage
         $response = Unirest::get("http://www.metacritic.com/game/pc/" . $game_name);                            
         if($response->code == 200)
