@@ -4,6 +4,11 @@ require_once 'libs/simple_html_dom.php';
 
 class MetacriticAPI
 {
+	private $response_body = "";
+
+	function __construct() {
+	}
+
     public function get_metacritic_page($game_name)
     {
         $returnValue = "";
@@ -22,13 +27,13 @@ class MetacriticAPI
         {
             $returnValue = $response->raw_body;
         }
-        return $returnValue;    
+		$this->response_body = $returnValue;
     }
     
-    public function get_metacritic_scores($page_response)
+    public function get_metacritic_scores()
     {
         # Get DOM by string content
-        $html = str_get_html($page_response);
+        $html = str_get_html($this->response_body);
         # Define json output array
         $json_output = array();
 		$error = false;
