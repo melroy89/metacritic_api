@@ -33,7 +33,7 @@ On error
 When for some reason the page couldn't be loaded / found or parsed, you will get the following JSON response:
 
 ```
-	{"error":"Page could not be loaded!"}
+{"error":"Page could not be loaded!"}
 ```
 
 Code example
