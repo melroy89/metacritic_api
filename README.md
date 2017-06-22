@@ -26,7 +26,8 @@ will give the following JSON output:
   "release_date": "Nov 11, 2011",
   "thumbnail_url": "http://static.metacritic.com/images/products/games/7/5988ee04196a686e107b46174f94a3ae-98.jpg",
   "cheat_url": "http://www.gamefaqs.com/console/pc/code/615805.html"
-}```
+}
+```
 
 On error
 --------
