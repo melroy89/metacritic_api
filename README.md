@@ -15,7 +15,8 @@ Searching on the PC game called "The Elder Scrolls V: Skyrim",
 will give the following JSON output:
 
 
-```{
+```
+{
   "name": "The Elder Scrolls V: Skyrim",
   "metascritic_score": 94,
   "users_score": 8.3,
