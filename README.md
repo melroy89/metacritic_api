@@ -56,5 +56,12 @@ Code example
 ------------
 Please, see [example.php](example.php)
 
+Another way to access the API is to directly call [metacritic.php](metacritic.php) via the website URL:
+```sh
+metacritic.php?game_title=Halo%202
+```
+
+Be-aware that the game title needs to be [URL encoded](https://www.w3schools.com/tags/ref_urlencode.asp) to work.
+
 Have fun!
 
