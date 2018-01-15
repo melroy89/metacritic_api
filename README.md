@@ -14,17 +14,31 @@ Example
 Searching on the PC game called "The Elder Scrolls V: Skyrim", 
 will give the following JSON output:
 
-
 ```
 {
   "name": "The Elder Scrolls V: Skyrim",
   "metascritic_score": 94,
-  "users_score": 8.3,
+  "users_score": 8.2,
   "rating": "M",
-  "genres": "Role-Playing",
-  "developers": "Bethesda Game Studios",
+  "genres": [
+    "Role-Playing",
+    "First-Person",
+    "First-Person",
+    "Western-Style"
+  ],
+  "developers": [
+    "Bethesda Game Studios"
+  ],
   "publishers": "Bethesda Softworks",
-  "release_date": "Nov 11, 2011",
+  "release_date": "Nov 10, 2011",
+  "also_on": [
+    "PlayStation 3",
+    "Xbox 360"
+  ],
+  "also_on_url": [
+    "/game/playstation-3/the-elder-scrolls-v-skyrim",
+    "/game/xbox-360/the-elder-scrolls-v-skyrim"
+  ],
   "thumbnail_url": "http://static.metacritic.com/images/products/games/7/5988ee04196a686e107b46174f94a3ae-98.jpg",
   "cheat_url": "http://www.gamefaqs.com/console/pc/code/615805.html"
 }
