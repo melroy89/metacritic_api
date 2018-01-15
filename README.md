@@ -14,7 +14,7 @@ Example
 Searching on the PC game called "The Elder Scrolls V: Skyrim", 
 will give the following JSON output:
 
-```
+```json
 {
   "name": "The Elder Scrolls V: Skyrim",
   "metascritic_score": 94,
@@ -48,9 +48,11 @@ On error
 --------
 When for some reason the page couldn't be loaded / found or parsed, you will get the following JSON response:
 
-```
+```json
 {"error":"Page could not be loaded!"}
 ```
+
+Or when metacritic.php is directly called, without input you will get: `{"error": "Game title is empty"}`
 
 Code example
 ------------
