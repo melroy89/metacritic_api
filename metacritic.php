@@ -88,7 +88,7 @@ class MetacriticAPI
 		    $genres = array();	
 		    foreach($html->find('span[itemprop=genre]') as $element) 
 		    {
-		        $genres = array_push($genres, trim($element->plaintext));
+		        array_push($genres, trim($element->plaintext));
 		    }        
 		    
 		    foreach($html->find('li[class=summary_detail developer] span[class=data]') as $element) 
@@ -160,5 +160,7 @@ if($_SERVER['SCRIPT_FILENAME'] == __FILE__)
     {	
         echo json_encode(array("error" => "Game title is empty"));	
 }	
+
+}
 
 ?>
