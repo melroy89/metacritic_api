@@ -23,11 +23,13 @@ class MetacriticAPI
 
         # Get the webpage
         $response = Unirest\Request::get("http://www.metacritic.com/game/pc/" . $game_name, $headers = array(), $parameters = null);                            
+        $this->response_body = $returnValue;
         if($response->code == 200)
         {
-            $returnValue = $response->raw_body;
-        }
-        $this->response_body = $returnValue;
+		$returnValue = $response->raw_body;
+		return true;
+	}
+	return false;
     }
     
     public function get_metacritic_scores()
