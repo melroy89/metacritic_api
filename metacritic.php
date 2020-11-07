@@ -11,12 +11,12 @@ class MetacriticAPI
     private $baseUrl = "http://www.metacritic.com/game/";
     private $arrSystems = array();
 
-    function __construct($system = "pc")
+    public function __construct($system = "pc")
     {
         $this->arrSystems[] = $system;
     }
 
-    public function get_metacritic_page($game_name)
+    public function getMetacriticPage($game_name)
     {
         $returnValue = "";
         # convert spaces to -
@@ -42,7 +42,7 @@ class MetacriticAPI
         $this->response_body = $returnValue;
     }
 
-    public function get_metacritic_scores()
+    public function getMetacriticScores()
     {
         # Get DOM by string content
         $html = str_get_html($this->response_body);
@@ -143,8 +143,8 @@ class MetacriticAPI
 if ($_SERVER['SCRIPT_FILENAME'] == __FILE__) {
     if (isset($_GET['game_title'])) {
         $metacritic_api = new MetacriticAPI();
-        $metacritic_api->get_metacritic_page($_GET['game_title']);
-        echo $metacritic_api->get_metacritic_scores();
+        $metacritic_api->getMetacriticPage($_GET['game_title']);
+        echo $metacritic_api->getMetacriticScores();
     } else {
         echo json_encode(array("error" => "Game title is empty"));
     }
