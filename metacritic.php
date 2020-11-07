@@ -4,10 +4,13 @@ require_once 'libs/simple_html_dom.php';
 
 class MetacriticAPI
 {
-    private $response_body = "";
+	private $response_body = "";
+	private $baseUrl = "http://www.metacritic.com/game/";
+	private $arrSystems = array();
 
-    function __construct() {
-    }
+	function __construct($system = "pc") {
+		$this->arrSystems[] = $system;
+	}
 
     public function get_metacritic_page($game_name)
     {
@@ -21,13 +24,18 @@ class MetacriticAPI
         # Remove all special chars execept a-z, digits, --sign, ?-sign, !-sign
         $game_name = preg_replace('/[^a-z\d\?!\-]/', '', $game_name);
 
-        # Get the webpage
-        $response = Unirest\Request::get("http://www.metacritic.com/game/pc/" . $game_name, $headers = array(), $parameters = null);                            
-        if($response->code == 200)
-        {
-            $returnValue = $response->raw_body;
+	    # Get the webpage
+	    $i = 0;
+	    do {
+		    $system = $this->arrSystems[$i++];
+		    $url = $this->baseUrl . $system . "/" . $game_name;
+	        $response = Unirest\Request::get($url, $headers = array(), $parameters = null);
+	    } while ($response->code <> 200 and $i<count($this->arrSystems));
+
+       	if($response->code == 200) {
+       	    $returnValue = $response->raw_body;
         }
-        $this->response_body = $returnValue;
+	    $this->response_body = $returnValue;
     }
     
     public function get_metacritic_scores()
@@ -49,14 +57,14 @@ class MetacriticAPI
         $image_url = "";
         $cheat_url = "";
 
-       if(!$html) 
-       {
-           $json_output['error'] = "Page could not be loaded!";
-           $error = true;
-       }
+		if(!$html) 
+		{
+			$json_output['error'] = "Page could not be loaded!";
+			$error = true;
+		}
 
-       if(!$error)
-       {
+		if(!$error)
+		{
 		    foreach($html->find('div[class=product_title] span[itemprop=name]') as $element) 
 		    {
 		        $name = trim($element->plaintext);
@@ -77,7 +85,7 @@ class MetacriticAPI
 		        $rating = trim($element->plaintext);
 		    }
 		    
-	            $genres = array();
+		    $genres = array();	
 		    foreach($html->find('span[itemprop=genre]') as $element) 
 		    {
 		        array_push($genres, trim($element->plaintext));
@@ -87,8 +95,8 @@ class MetacriticAPI
 		    {
 		        $developer = trim($element->plaintext);
 		    }
-                    $developers = explode(", ", $developer);
-		    
+		    $developers = explode(", ", $developer);
+
 		    foreach($html->find('li[class=summary_detail publisher] span[itemprop=name]') as $element) 
 		    {
 		        $publisher = trim($element->plaintext);
@@ -99,15 +107,15 @@ class MetacriticAPI
 		        $release_date = trim($element->plaintext);
 		    }
 
-                    $also_on = array();
-                    $also_on_url = array();
-                    foreach($html->find('li[class=summary_detail product_platforms] span[class=data] a') as $element)
-                    {
-                        array_push($also_on, trim($element->plaintext));
-                        array_push($also_on_url, $element->href);
-                    }
-		    
-		    foreach($html->find('img[class=product_image]') as $element) 
+		    $also_on = array();
+            $also_on_url = array();	
+            foreach($html->find('li[class=summary_detail product_platforms] span[class=data] a') as $element)	
+            {	
+                array_push($also_on, trim($element->plaintext));	
+                array_push($also_on_url, $element->href);	
+            }	
+
+		    foreach($html->find('img[class=product_image]') as $element) 	
 		    {
 		        $image_url = $element->src;
 		    }
@@ -117,9 +125,9 @@ class MetacriticAPI
 		        $cheat_url = $element->href;
 		    }
 	
-                    # Prevent memory leak
-		    $html->clear();
-		    unset($html);                                                      
+			# Prevent memory leak
+			$html->clear();
+			unset($html);                                                      
 		 
 		    # Fill-in the array
 		    $json_output['name'] = $name;
@@ -130,17 +138,16 @@ class MetacriticAPI
 		    $json_output['developers'] = $developers;
 		    $json_output['publishers'] = $publisher;
 		    $json_output['release_date'] = $release_date;
-                    $json_output['also_on'] = $also_on;
-                    $json_output['also_on_url'] = $also_on_url;
+            $json_output['also_on'] = $also_on;	
+            $json_output['also_on_url'] = $also_on_url;
 		    $json_output['thumbnail_url'] = $image_url;
 		    $json_output['cheat_url'] = $cheat_url;
-        }
+		}
 
         # Return JSON format
         return json_encode($json_output);
     }
 }
-
 
 if($_SERVER['SCRIPT_FILENAME'] == __FILE__)
 {
@@ -148,9 +155,7 @@ if($_SERVER['SCRIPT_FILENAME'] == __FILE__)
         $metacritic_api = new MetacriticAPI();
         $metacritic_api->get_metacritic_page($_GET['game_title']);
         echo $metacritic_api->get_metacritic_scores();
-    }
-    else
-    {
+    } else {
         echo json_encode(array("error" => "Game title is empty"));
     }
 }
