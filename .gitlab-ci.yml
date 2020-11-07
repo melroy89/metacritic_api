@@ -1,0 +1,34 @@
+image: jakzal/phpqa:php7.4-alpine
+
+# Cache between jobs
+cache:
+  paths:
+    - vendor/
+
+before_script:
+  - composer install
+
+stages:
+  - QA
+
+static-code-analysis:
+  stage: QA
+  script:
+    # Use Psalm static analysis tool, see also psalm.xml file
+    - psalm --no-cache 
+
+coding-style:
+  stage: QA
+  script:
+    # Run phpcs (phpcbf can be used to auto-fix the errors/warnings), -n is only showing errors, see also phpcs.xml file.
+    # Note: phpcs also checks JavaScript & CSS code.
+    - phpcs -n --standard=phpcs.xml .
+
+phpmetrics:
+  stage: QA
+  allow_failure: true
+  script:
+    - phpmetrics --config=phpmetrics.json
+  artifacts:
+    paths:
+      - report/

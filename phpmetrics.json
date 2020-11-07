@@ -1,0 +1,17 @@
+{
+    "includes": [
+        "."
+    ],
+    "exclude": [
+      "libs",
+      "vendor"
+    ],
+    "report": {
+        "html": "report/"
+    },
+    "plugins": {
+        "git": {
+            "binary": "git"
+        }
+    }
+}

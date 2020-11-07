@@ -1,5 +1,5 @@
-Metacritic API
-==============
+# Metacritic API
+
 Using this Metacritic API, you are able to search games on [metacritic.com](http://www.metacritic.com).
 
 It will give you back the metacritic score, users score, genres, rating, developers and much more (see below for an example).
@@ -8,9 +8,8 @@ The output is in [JSON format](http://us.php.net/manual/en/function.json-decode.
 By default it uses the URL prefix: "http://www.metacritic.com/game/pc/". If you want to search for Playstation 3 games, just change it to:
 "http://www.metacritic.com/game/playstation-3". See [metacritic.php](metacritic.php) file.
 
+## Example
 
-Example
--------
 Searching on the PC game called "The Elder Scrolls V: Skyrim", 
 will give the following JSON output:
 
@@ -44,8 +43,8 @@ will give the following JSON output:
 }
 ```
 
-On error
---------
+## On error
+
 When for some reason the page couldn't be loaded / found or parsed, you will get the following JSON response:
 
 ```json
@@ -54,8 +53,8 @@ When for some reason the page couldn't be loaded / found or parsed, you will get
 
 Or when metacritic.php is directly called, without input you will get: `{"error": "Game title is empty"}`
 
-Code example
-------------
+## Code example
+
 Please, see [example.php](example.php)
 
 Another way to access the API is to directly call [metacritic.php](metacritic.php) via the website URL:
@@ -67,3 +66,13 @@ Be-aware that the game title needs to be [URL encoded](https://www.w3schools.com
 
 Have fun!
 
+## CI/CD
+
+Code quality is checked in GitLab CI/CD, to avoid regression.
+
+Currently in the pipeline:
+
+* [Psalm](https://psalm.dev/) - Static analysis tool for PHP
+* [Phpcs](https://github.com/squizlabs/PHP_CodeSniffer) - PHP coding style standard (`phpcbf` command for auto-fix)
+* [Phpmetrics](https://phpmetrics.github.io/PhpMetrics/) - PHP metrics for complexity, object oriented, maintainability and more.
+  * [Latest Metrics Report](https://gitlab.melroy.org/melroy/metacritic_api/-/jobs/artifacts/master/file/report/index.html?job=phpmetrics)
