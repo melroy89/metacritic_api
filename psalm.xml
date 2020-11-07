@@ -13,4 +13,12 @@
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>
+    <issueHandlers>
+        <UndefinedClass>
+            <errorLevel type="suppress">
+                <referencedClass name="Unirest\Request" />
+                <file name="metacritic.php" />
+            </errorLevel>
+        </UndefinedClass>
+    </issueHandlers>
 </psalm>
