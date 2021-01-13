@@ -67,24 +67,24 @@ class MetacriticAPI
         }
 
         if (!$error) {
-            foreach ($html->find('div[class=product_title] span[itemprop=name]') as $element) {
+            foreach ($html->find('div[class=product_title] h1') as $element) {
                 $name = trim($element->plaintext);
             }
 
-            foreach ($html->find('span[itemprop=ratingValue]') as $element) {
+            foreach ($html->find('div[class=metascore_w xlarge game positive] span') as $element) {
                 $metascritic_score = intval($element->plaintext);
             }
 
-            foreach ($html->find("div[class=userscore_wrap] a[class=metascore_anchor] div[class=metascore_w]") as $element) {
+            foreach ($html->find("div[class=metascore_w user large game positive]") as $element) {
                 $user_score = floatval($element->plaintext);
             }
 
-            foreach ($html->find('span[itemprop=contentRating]') as $element) {
+            foreach ($html->find('li[class=summary_detail product_rating] span[class=data]') as $element) {
                 $rating = trim($element->plaintext);
             }
 
             $genres = array();
-            foreach ($html->find('span[itemprop=genre]') as $element) {
+            foreach ($html->find('li[class=summary_detail product_genre] span[class=data]') as $element) {
                 array_push($genres, trim($element->plaintext));
             }
 
@@ -93,11 +93,11 @@ class MetacriticAPI
             }
             $developers = explode(", ", $developer);
 
-            foreach ($html->find('li[class=summary_detail publisher] span[itemprop=name]') as $element) {
+            foreach ($html->find('li[class=summary_detail publisher] span[class=data] a') as $element) {
                 $publisher = trim($element->plaintext);
             }
 
-            foreach ($html->find('span[itemprop=datePublished]') as $element) {
+            foreach ($html->find('li[class=summary_detail release_data] span[class=data]') as $element) {
                 $release_date = trim($element->plaintext);
             }
 
@@ -108,7 +108,7 @@ class MetacriticAPI
                 array_push($also_on_url, $element->href);
             }
 
-            foreach ($html->find('img[class=product_image]') as $element) {
+            foreach ($html->find('img[class=product_image large_image]') as $element) {
                 $image_url = $element->src;
             }
 
