@@ -1,7 +1,7 @@
 <?php
 
-namespace MetacriticAPI;
-
+namespace Metacritic\API;
+use Unirest;
 require_once 'libs/Unirest.php';
 require_once 'libs/simple_html_dom.php';
 
