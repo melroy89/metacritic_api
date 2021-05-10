@@ -71,11 +71,11 @@ class MetacriticAPI
                 $name = trim($element->plaintext);
             }
 
-            foreach ($html->find('div[class=metascore_w xlarge game positive] span') as $element) {
+            foreach ($html->find('div[class*=metascore_w xlarge game]') as $element) {
                 $metascritic_score = intval($element->plaintext);
             }
 
-            foreach ($html->find("div[class=metascore_w user large game positive]") as $element) {
+            foreach ($html->find('div[class*=metascore_w user large game]') as $element) {
                 $user_score = floatval($element->plaintext);
             }
 
