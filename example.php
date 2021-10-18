@@ -1,8 +1,10 @@
 <?php
+
 # Ignore Unirest warning if any (eg. safe mode related)
 #error_reporting(E_ERROR | E_PARSE);
 
 namespace Metacritic;
+
 include 'metacritic.php';
 
 $metacritic_api = new API\MetacriticAPI();
