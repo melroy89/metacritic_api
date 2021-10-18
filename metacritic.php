@@ -1,5 +1,4 @@
 <?php
-
 namespace Metacritic\API;
 use Unirest;
 require_once 'libs/Unirest.php';
