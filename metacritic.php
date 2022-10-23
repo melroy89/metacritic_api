@@ -22,6 +22,8 @@ class MetacriticAPI
     public function getMetacriticPage($game_name)
     {
         $returnValue = "";
+        # Remove spaces
+        $game_name = trim($game_name);
         # convert spaces to -
         $game_name = str_replace(' ', '-', $game_name);
         # Remove &<space>
@@ -70,52 +72,52 @@ class MetacriticAPI
         }
 
         if (!$error) {
-            foreach ($html->find('div[class=product_title] h1') as $element) {
+            foreach ($html->find('div.product_title h1') as $element) {
                 $name = trim($element->plaintext);
             }
 
-            foreach ($html->find('div[class=metascore_w xlarge game positive] span') as $element) {
+            foreach ($html->find('div.metascore_w.game span') as $element) {
                 $metascritic_score = intval($element->plaintext);
             }
 
-            foreach ($html->find("div[class=metascore_w user large game positive]") as $element) {
+            foreach ($html->find("div.metascore_w.user.large.game") as $element) {
                 $user_score = floatval($element->plaintext);
             }
 
-            foreach ($html->find('li[class=summary_detail product_rating] span[class=data]') as $element) {
+            foreach ($html->find('li.summary_detail.product_rating span.data') as $element) {
                 $rating = trim($element->plaintext);
             }
 
             $genres = array();
-            foreach ($html->find('li[class=summary_detail product_genre] span[class=data]') as $element) {
+            foreach ($html->find('li.summary_detail.product_genre span.data') as $element) {
                 array_push($genres, trim($element->plaintext));
             }
 
-            foreach ($html->find('li[class=summary_detail developer] span[class=data]') as $element) {
+            foreach ($html->find('li.summary_detail.developer span.data') as $element) {
                 $developer = trim($element->plaintext);
             }
             $developers = explode(", ", $developer);
 
-            foreach ($html->find('li[class=summary_detail publisher] span[class=data] a') as $element) {
+            foreach ($html->find('li.summary_detail.publisher span.data a') as $element) {
                 $publisher = trim($element->plaintext);
             }
 
-            foreach ($html->find('li[class=summary_detail release_data] span[class=data]') as $element) {
+            foreach ($html->find('li.summary_detail.release_data span.data') as $element) {
                 $release_date = trim($element->plaintext);
             }
 
             $also_on = array();
             $also_on_url = array();
-            foreach ($html->find('li[class=summary_detail product_platforms] span[class=data] a') as $element) {
+            foreach ($html->find('li.summary_detail.product_platforms span.data a') as $element) {
                 array_push($also_on, trim($element->plaintext));
                 array_push($also_on_url, $element->href);
             }
 
-            foreach ($html->find('img[class=product_image large_image]') as $element) {
+            foreach ($html->find('img.product_image.large_image') as $element) {
                 $image_url = $element->src;
             }
 
-            foreach ($html->find('li[class=summary_detail product_cheats] span[class=data] a') as $element) {
+            foreach ($html->find('li.summary_detail.product_cheats span.data a') as $element) {
                 $cheat_url = $element->href;
             }
 
