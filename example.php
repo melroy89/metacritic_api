@@ -7,7 +7,10 @@ namespace Metacritic;
 
 include 'metacritic.php';
 
+// In this example we use the constructor with default parameters,
+// meaning it will only search on PC games
 $metacritic_api = new API\MetacriticAPI();
+// Lets search on a game
 $metacritic_api->getMetacriticPage("The Elder Scrolls V: Skyrim");
 $json_reponse = $metacritic_api->getMetacriticScores();
 
